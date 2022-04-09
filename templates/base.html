@@ -14,7 +14,7 @@
       margin-top: 20px;
       display: none;
     }
-    </style>
+  </style>
   <title>Base</title>
 </head>
 
@@ -49,6 +49,28 @@
             return false;
           });
         }); 
+
+        $(function() 
+        {
+          $('a#showImage').on('click', function(e) 
+          {
+            e.preventDefault()
+            $.getJSON('/showKFImages',
+                function(data) 
+                {
+                  image_arr = data.image_arr
+                  console.log(image_arr[0]);
+                  for(let i = 0; i < image_arr.length; i++)
+                  {
+                    $('#img'+i).attr('src', image_arr[i]);
+                    $('#img'+i).attr('width', 120);
+                    $('#img'+i).attr('height', 80);
+                  }
+              //do nothing
+            });
+            return false;
+          });
+        }); 
 </script>
 
   <div class='container'>
@@ -58,13 +80,27 @@
     </form>
 
   </div>
-
   <br>
   <div id="keyframe_message">
     <p>
-    KeyFrames Extracted Successfully...
-  </p>
+      KeyFrames Extracted Successfully...
+    </p>
+    <br>
+    <h1>Extract KeyFrames</h1>
+    <form>
+      <a href=# id=showImage><button class='btn btn-default'>Extract KeyFrames</button></a>
+    </form>
   </div>
+
+
+  <div>
+    <br>
+    {% for i in range(1000) %}
+  <img id="img{{i}}" src="" width="0" height="0">
+  {% endfor %}
+  </div>
+
+
 
 </body>
 
